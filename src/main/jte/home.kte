@@ -1,0 +1,10 @@
+@template.base(title = "Home", content = @`
+    <div class="vh-100 vw-100 d-flex flex-column justify-content-center align-items-center">
+        <h1>Абоба</h1>
+        <div>
+            <a href="/sing-up-flow" class="btn btn-primary">Путь регистрации</a>
+            <a href="/purchase-flow" type="button" class="btn btn-primary">Путь покупки продукта</a>
+        </div>
+    </div>
+    <script src="/webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+`)

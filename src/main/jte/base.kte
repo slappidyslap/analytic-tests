@@ -1,0 +1,23 @@
+@import gg.jte.Content
+
+@param content: Content
+@param title: String
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <script src="/webjars/htmx.org/2.0.4/dist/htmx.min.js"></script>
+    <title>${title}</title>
+</head>
+<body>
+
+${content}
+
+<script src="/webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+</body>
+</html>
