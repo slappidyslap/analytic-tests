@@ -1,3 +1,6 @@
-@template.base(title = "Sign Up Flow", content = @`
+@param mpga4ApiKey: String
+
+@template.base(title = "Purchase Flow", content = @`
     <h1>Это сценарий покупки</h1>
+    <h2>А это API ключ для Measurement Protocol: ${mpga4ApiKey}</h2>
 `)
