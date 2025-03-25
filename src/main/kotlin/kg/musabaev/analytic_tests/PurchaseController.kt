@@ -12,12 +12,12 @@ class PurchaseController {
     private val log = LoggerFactory.getLogger(PurchaseController::class.java)
 
     @Value("\${MP_GA4_API_KEY}")
-    private lateinit var mpga4ApiKey: String
+    private lateinit var mpGa4ApiKey: String
 
     @GetMapping("/purchase-flow")
     fun purchaseFlowPage(model: Model): String {
         log.info("PurchaseFlow")
-        model.addAttribute("mpga4ApiKey", mpga4ApiKey.substring(7))
+        model.addAttribute("mpGa4ApiKey", mpGa4ApiKey.substring(7))
         return "purchase-flow"
     }
 }

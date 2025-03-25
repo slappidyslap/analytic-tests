@@ -1,6 +1,6 @@
-@param mpga4ApiKey: String
+@param mpGa4ApiKey: String
 
 @template.base(title = "Purchase Flow", content = @`
     <h1>Это сценарий покупки</h1>
-    <h2>А это API ключ для Measurement Protocol: ${mpga4ApiKey}</h2>
+    <h2>А это API ключ для Measurement Protocol: ${mpGa4ApiKey}</h2>
 `)

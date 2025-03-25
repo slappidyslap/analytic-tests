@@ -6,5 +6,4 @@
             <a href="/purchase-flow" type="button" class="btn btn-primary">Путь покупки продукта</a>
         </div>
     </div>
-    <script src="/webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
 `)
