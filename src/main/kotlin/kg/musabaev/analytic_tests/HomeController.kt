@@ -10,6 +10,7 @@ class HomeController {
 
     @GetMapping("/")
     fun homePage(): String {
+        log.info("Home")
         return "home"
     }
 }

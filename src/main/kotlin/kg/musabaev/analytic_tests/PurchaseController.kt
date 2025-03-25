@@ -10,6 +10,7 @@ class PurchaseController {
 
     @GetMapping("/purchase-flow")
     fun purchaseFlowPage(): String {
+        log.info("PurchaseFlow")
         return "purchase-flow"
     }
 }

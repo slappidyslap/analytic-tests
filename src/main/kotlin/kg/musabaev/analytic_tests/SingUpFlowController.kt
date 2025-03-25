@@ -10,7 +10,7 @@ class SingUpFlowController {
 
     @GetMapping("/sing-up-flow")
     fun signUpFlowPage(): String {
-        log.info("Requesting SingUpFlow")
+        log.info("SingUpFlow")
         return "sign-up-flow"
     }
 }
