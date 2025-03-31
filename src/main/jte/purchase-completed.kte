@@ -1,0 +1,3 @@
+@template.base(title = "Purchase Completed", content = @`
+    <h1>Продукт куплен</h1>
+`)

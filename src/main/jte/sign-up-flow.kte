@@ -1,3 +1,0 @@
-@template.base(title = "Sign Up Flow", content = @`
-    <h1>Это сценарий регистрации</h1>
-`)

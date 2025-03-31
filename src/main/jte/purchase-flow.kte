@@ -1,6 +1,41 @@
+@param step: Int
 @param mpGa4ApiKey: String
+@param curFlowLabelText: String
+@param curStepUri: String
+@param nextStepUri: String
+@param nextStepLabelText: String
+@param flow: String
+@param ga4EventName: String
 
 @template.base(title = "Purchase Flow", content = @`
-    <h1>Это сценарий покупки</h1>
-    <h2>А это API ключ для Measurement Protocol: ${mpGa4ApiKey}</h2>
+    <h1 class="mb-3">Это сценарий покупки через ${curFlowLabelText}. Прям сейчас ${step} шаг</h1>
+    <h2 class="mb-3">А это API ключ для Measurement Protocol: ${mpGa4ApiKey}</h2>
+    @if (flow == "Каталог")
+
+    @else
+        @if (step == 3)
+            <div class="d-flex mb-3">
+                <a class="btn btn-primary" href="${curStepUri}">Продукт 1</a>
+                <a class="btn btn-primary" href="${curStepUri}">Продукт 2</a>
+                <a class="btn btn-primary" href="${curStepUri}">Продукт 3</a>
+            </div>
+
+            <a id="nextStepBtn" class="btn btn-primary" href="/purchase-completed">Покупка</a>
+        @else
+            <a id="nextStepBtn" class="btn btn-primary" href="${nextStepUri}">Перейти на следующий шаг: ${nextStepLabelText} - ${nextStepUri}</a>
+        @endif
+    @endif
+
+    <script>
+        const nextStepBtn = document.querySelector("#nextStepBtn")
+        nextStepBtn.addEventListener("click", e => {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: "${ga4EventName}",
+                step: ${step},
+                flow: "${flow}",
+                item_type: "product"
+            });
+        })
+    </script>
 `)

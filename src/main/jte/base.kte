@@ -28,7 +28,11 @@
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5BJ9HKFL" height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
-
+<nav class="nav">
+    <a href="/" class="btn btn-dark">Главная</a>
+    <a href="/purchase-via-catalog-flow?step=1" class="btn btn-dark">Покупка через каталог</a>
+    <a href="/purchase-via-application-flow?step=1" type="button" class="btn btn-dark">Покупка через анкету</a>
+</nav>
 ${content}
 
 <script src="/webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
