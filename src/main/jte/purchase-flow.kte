@@ -1,5 +1,4 @@
 @param step: Int
-@param mpGa4ApiKey: String
 @param curFlowLabelText: String
 @param curStepUri: String
 @param nextStepUri: String
@@ -9,7 +8,6 @@
 
 @template.base(title = "Purchase Flow", content = @`
     <h1 class="mb-3">Это сценарий покупки через ${curFlowLabelText}. Прям сейчас ${step} шаг</h1>
-    <h2 class="mb-3">А это API ключ для Measurement Protocol: ${mpGa4ApiKey}</h2>
     @if (flow == "Каталог")
 
     @else

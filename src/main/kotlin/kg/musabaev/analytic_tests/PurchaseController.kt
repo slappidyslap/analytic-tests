@@ -1,23 +1,32 @@
 package kg.musabaev.analytic_tests
 
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.CookieValue
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class PurchaseController {
 
     private val log = LoggerFactory.getLogger(PurchaseController::class.java)
 
-    @Value("\${MP_GA4_API_KEY}")
-    private lateinit var mpGa4ApiKey: String
+    private lateinit var mpGa4Service: MpGa4Service
+    private lateinit var httpSessionService: HttpSessionService
 
     @GetMapping("/purchase-via-application-flow")
-    fun getPurchaseViaApplicationPageByStep(@Param("step") step: Int, model: Model): String {
+    fun getPurchaseViaApplicationPageByStep(
+        @Param("step") step: Int,
+        @CookieValue("_ga") rawGa4ClientId: String,
+        @RequestParam allUrlParams: Map<String, String>,
+        model: Model): String {
+
         log.info("purchase-via-application-flow?step=$step")
+
+        httpSessionService.saveSession(rawGa4ClientId, allUrlParams)
+
         val nextStepLabelText = when (step) {
             1 -> "Анкета"
             2 -> "Конкретный психолог"
@@ -37,7 +46,6 @@ class PurchaseController {
             addAttribute("step", step)
             addAttribute("flow", "Анкета")
             addAttribute("curFlowLabelText", "анкету")
-            addAttribute("mpGa4ApiKey", mpGa4ApiKey.substring(7))
             addAttribute("curStepUri", "/purchase-via-application-flow?step=$step")
             addAttribute("nextStepUri", "/purchase-via-application-flow?step=${step + 1}")
             addAttribute("nextStepLabelText", nextStepLabelText)
@@ -48,8 +56,16 @@ class PurchaseController {
     }
 
     @GetMapping("/purchase-via-catalog-flow")
-    fun getPurchaseViaCatalogPageByStep(@Param("step") step: Int, model: Model): String {
+    fun getPurchaseViaCatalogPageByStep(
+        @Param("step") step: Int,
+        @CookieValue("_ga") rawGa4ClientId: String,
+        @RequestParam allUrlParams: Map<String, String>,
+        model: Model): String {
+
         log.info("purchase-via-catalog-flow?step=$step")
+
+        httpSessionService.saveSession(rawGa4ClientId, allUrlParams)
+
         val nextStepLabelText = when (step) {
             1 -> "Конкретный продукт"
             2 -> "Регистрация"
@@ -67,7 +83,6 @@ class PurchaseController {
             addAttribute("step", step)
             addAttribute("flow", "Каталог")
             addAttribute("curFlowLabelText", "каталог")
-            addAttribute("mpGa4ApiKey", mpGa4ApiKey.substring(7))
             addAttribute("curStepUri", "/purchase-via-catalog-flow?step=$step")
             addAttribute("nextStepUri", "/purchase-via-catalog-flow?step=${step + 1}")
             addAttribute("nextStepLabelText", nextStepLabelText)
@@ -78,7 +93,8 @@ class PurchaseController {
     }
 
     @GetMapping("/purchase-completed")
-    fun purchaseCompletedPage(): String {
+    fun purchaseCompletedPage(@CookieValue("_ga") rawGa4ClientId: String): String {
+        mpGa4Service.sendPurchaseEvent(rawGa4ClientId)
         log.info("purchase-completed")
         return "purchase-completed"
     }

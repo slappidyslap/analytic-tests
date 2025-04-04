@@ -1,9 +1,47 @@
 @template.base(title = "Home", content = @`
     <div class="vh-100 vw-100 d-flex flex-column justify-content-center align-items-center">
-        <h1>Абоба</h1>
+        <h1>А</h1>
+        <input name="utm_source" placeholder="utm_source">
+        <input name="utm_medium" placeholder="utm_medium">
+        <input name="utm_campaign" placeholder="utm_campaign">
+        <input name="utm_keyword" placeholder="utm_keyword">
+        <input name="product_name" placeholder="product_name">
         <div>
-            <a href="/purchase-via-catalog-flow?step=1" class="btn btn-primary">Покупка через каталог</a>
-            <a href="/purchase-via-application-flow?step=1" type="button" class="btn btn-primary">Покупка через анкету</a>
+            <a id="link-catalog" href="/purchase-via-catalog-flow?step=1" class="btn btn-primary">Покупка через каталог</a>
+            <a id="link-application" href="/purchase-via-application-flow?step=1" class="btn btn-primary">Покупка через анкету</a>
         </div>
     </div>
+
+    <script>
+        const inputs = document.querySelectorAll('input[name]');
+        const links = [
+          document.getElementById('link-catalog'),
+          document.getElementById('link-application')
+        ];
+
+        inputs.forEach(input => {
+          input.addEventListener('input', updateLinks);
+        });
+
+        function updateLinks() {
+          const params = new URLSearchParams();
+          inputs.forEach(input => {
+            if (input.value.trim()) {
+              params.set(input.name, input.value.trim());
+            }
+          });
+
+          links.forEach(link => {
+            const baseUrl = link.href.split('?')[0];
+            const baseParams = new URLSearchParams(link.href.split('?')[1]);
+            baseParams.forEach((value, key) => {
+              if (!['utm_source', 'utm_medium', 'utm_campaign', 'utm_keyword', 'product_name'].includes(key)) {
+                params.set(key, value);
+              }
+            });
+            link.href = baseUrl + "?" + params.toString()
+          });
+        }
+    </script>
+
 `)
